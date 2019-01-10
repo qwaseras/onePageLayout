@@ -6,11 +6,18 @@ searchBtn.addEventListener("click", function(){
 })
 
 const navBtn = document.querySelector("#menu");
+let navIsClose = true;
 
 navBtn.addEventListener("click", function(){
     const responsiveNav = document.querySelector("#responsive-nav");
-    responsiveNav.classList.remove("hidden");
-})
+    if (navIsClose) {
+        responsiveNav.classList.remove("hidden");
+        navIsClose = false;
+    } else {
+        responsiveNav.classList.add("hidden");
+        navIsClose = true;
+    };
+});
 
 const closeBtn = document.querySelector("#close-btn");
 closeBtn.addEventListener("click", function(){
