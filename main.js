@@ -1,10 +1,10 @@
 const searchBtn = document.querySelector("#search");
-const overlay   = document.querySelector(".overlay");
-const closeBtn  = document.querySelector("#close-btn");
-const navBtn    = document.querySelector("#menu");
+const overlay = document.querySelector(".overlay");
+const closeBtn = document.querySelector("#close-btn");
+const navBtn = document.querySelector("#menu");
 let navIsClosed = true;
 
-navBtn.addEventListener("click", function() {
+navBtn.addEventListener("click", () => {
     const responsiveNav = document.querySelector("#responsive-nav");
 
     if (navIsClosed) {
@@ -16,9 +16,9 @@ navBtn.addEventListener("click", function() {
     };
 });
 
-searchBtn.addEventListener("click", function() {
+searchBtn.addEventListener("click", () => {
     overlay.classList.remove("closed-overlay");   
 });
-closeBtn.addEventListener("click", function() {
+closeBtn.addEventListener("click", () => {
     overlay.classList.add("closed-overlay");
 })
