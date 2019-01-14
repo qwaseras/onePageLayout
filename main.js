@@ -22,3 +22,77 @@ searchBtn.addEventListener("click", () => {
 closeBtn.addEventListener("click", () => {
     overlay.classList.add("closed-overlay");
 })
+
+
+//--------------------------------------------------------------
+
+
+const emptyBlogBlock = document.querySelector(".blog-block");
+const blogsContainer = document.querySelector("#blogs");
+
+let position = 0;
+const step = 8;
+
+document.addEventListener("DOMContentLoaded",  getGifs(position));
+
+class Blog {
+    constructor(blog) {
+        this.image = blog.images.original.url;
+        this.link = blog.embed_url;
+        this.title = blog.title;
+        this.date = blog.import_datetime
+    } 
+    render() {
+        let blogBlock = emptyBlogBlock.cloneNode(true);
+        blogBlock.classList.remove("hidden");
+
+        blogBlock.querySelector(".image").src = this.image;
+        blogBlock.querySelector(".link").href = this.link;
+        blogBlock.querySelector(".blog-title").textContent = this.title;
+        
+        blogBlock.querySelector(".blog-date").textContent = this.date.replace(/-/g, ".");
+
+        blogsContainer.appendChild(blogBlock);
+    }
+};
+
+function getGifs(position) {
+    let gifsUrl = `http://api.giphy.com/v1/gifs/search?q=dog&api_key=HfG5C4xIbHJUtsczY9ajTm8ohRlw9HpM&offset=${position}&limit=8`; 
+
+    fetch(gifsUrl)
+        .then( (response) => {
+            return response.json();
+        })
+        .then ( (responseObject) => {
+            let gifsArray = responseObject.data;
+
+            gifsArray.forEach(gifObj => {
+                let blog = new Blog(gifObj);
+                blog.render();
+            });
+        });
+};
+
+function removeBlogs() {
+    let divs = document.querySelectorAll(".blog-block");
+    
+    for (let i = 1; i < divs.length; i++) { 
+        blogsContainer.removeChild( divs[i]);
+    };
+};
+
+const nextGifsSetBtn = document.querySelector("#next-set");
+nextGifsSetBtn.addEventListener("click", () => {
+    removeBlogs();
+    position += step;
+    getGifs(position);
+});
+
+const priviousGifsSetBtn = document.querySelector("#privious-set");
+priviousGifsSetBtn.addEventListener("click", () => {
+    if (position != 0) {
+        removeBlogs()  ; 
+        position -= step;
+        getGifs(position);
+    }
+})
