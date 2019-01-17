@@ -276,7 +276,7 @@ h3 {
 #blogs {
     display: flex;
     flex-flow: column wrap;
-    max-height: 1700px;
+    max-height: 1800px;
     align-content: space-between;
 }
     .blog-block {

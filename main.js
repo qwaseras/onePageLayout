@@ -10,7 +10,8 @@ navBtn.addEventListener("click", () => {
     if (navIsClosed) {
         responsiveNav.classList.remove("closed-nav");
         navIsClosed = false;
-    } else {
+    } 
+    else {
         responsiveNav.classList.add("closed-nav");
         navIsClosed = true;
     };
@@ -21,11 +22,7 @@ searchBtn.addEventListener("click", () => {
 });
 closeBtn.addEventListener("click", () => {
     overlay.classList.add("closed-overlay");
-})
-
-
-//--------------------------------------------------------------
-
+});
 
 const emptyBlogBlock = document.querySelector(".blog-block");
 const blogsContainer = document.querySelector("#blogs");
@@ -41,9 +38,9 @@ class Blog {
         this.link = blog.embed_url;
         this.title = blog.title;
         this.date = blog.import_datetime
-    } 
+    }; 
     render() {
-        let blogBlock = emptyBlogBlock.cloneNode(true);
+        const blogBlock = emptyBlogBlock.cloneNode(true);
         blogBlock.classList.remove("hidden");
 
         blogBlock.querySelector(".image").src = this.image;
@@ -53,46 +50,45 @@ class Blog {
         blogBlock.querySelector(".blog-date").textContent = this.date.replace(/-/g, ".");
 
         blogsContainer.appendChild(blogBlock);
-    }
+    };
 };
 
 function getGifs(position) {
     let gifsUrl = `http://api.giphy.com/v1/gifs/search?q=dog&api_key=HfG5C4xIbHJUtsczY9ajTm8ohRlw9HpM&offset=${position}&limit=8`; 
 
     fetch(gifsUrl)
-        .then( (response) => {
+        .then((response) => {
             return response.json();
         })
-        .then ( (responseObject) => {
-            let gifsArray = responseObject.data;
+        .then((responseObject) => {
+            const gifsArray = responseObject.data;
 
             gifsArray.forEach(gifObj => {
-                let blog = new Blog(gifObj);
+                const blog = new Blog(gifObj);
                 blog.render();
             });
         });
 };
 
 function removeBlogs() {
-    let divs = document.querySelectorAll(".blog-block");
-    
-    for (let i = 1; i < divs.length; i++) { 
-        blogsContainer.removeChild( divs[i]);
-    };
+    const divs = document.querySelectorAll(".blog-block");
+    divs.forEach(div => {
+        blogsContainer.removeChild(div);
+    });
 };
 
-const nextGifsSetBtn = document.querySelector("#next-set");
-nextGifsSetBtn.addEventListener("click", () => {
+const nextGifsBtn = document.querySelector("#next-set");
+nextGifsBtn.addEventListener("click", () => {
     removeBlogs();
     position += step;
     getGifs(position);
 });
 
-const priviousGifsSetBtn = document.querySelector("#privious-set");
-priviousGifsSetBtn.addEventListener("click", () => {
+const previousGifsBtn = document.querySelector("#previous-set");
+previousGifsBtn.addEventListener("click", () => {
     if (position != 0) {
-        removeBlogs()  ; 
+        removeBlogs(); 
         position -= step;
         getGifs(position);
-    }
-})
+    };
+});
