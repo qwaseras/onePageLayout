@@ -54,7 +54,7 @@ class Blog {
 };
 
 function getGifs(position) {
-    let gifsUrl = `http://api.giphy.com/v1/gifs/search?q=dog&api_key=HfG5C4xIbHJUtsczY9ajTm8ohRlw9HpM&offset=${position}&limit=8`; 
+    let gifsUrl = `https://api.giphy.com/v1/gifs/search?q=dog&api_key=HfG5C4xIbHJUtsczY9ajTm8ohRlw9HpM&offset=${position}&limit=8`; 
 
     fetch(gifsUrl)
         .then((response) => {
